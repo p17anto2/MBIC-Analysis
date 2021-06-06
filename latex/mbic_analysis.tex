@@ -1,0 +1,282 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage[english, greek]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {/media/data/Documents/Panepisthmio/} }
+\usepackage{tabularx}
+\usepackage{hyperref}
+
+%Use template with ALEFix
+%For Greek, \gr
+%For English, \en
+%To add a good word to the dictionary, use zg and zug to undo
+%To add a wrong word to the dictionary, use zw and zuw to undo
+%To show suggestions, use z=
+
+\begin{document}
+\begin{titlepage}
+	\begin{center}
+		\begin{figure}
+			\includegraphics[width=\linewidth]{uni.png}
+		\end{figure}
+		\Large\textbf{\selectlanguage{english}Media Bias Including Characteristics -- \selectlanguage{greek}Ανάλυση}
+		\vspace{8cm}
+	\end{center}
+	\begin{tabularx}{\textwidth}{lXr}
+		 \Large\selectlanguage{greek}Αντωνακάκης Απόστολος \selectlanguage{english} & & \Large\selectlanguage{greek} Π2017095
+	\end{tabularx}
+\end{titlepage}
+\newpage
+
+
+\section{\selectlanguage{greek}Εισαγωγή}
+
+%     • Εισαγωγή 
+%         ◦ Εισαγωγή στον ερευνητικό χώρο της εργασίας
+%         ◦ Βασικές προσεγγίσεις επίλυσής του
+%         ◦ Συνεισφορά της εργασίας
+%         ◦ Σχεδιάγραμμα του άρθρου
+
+Τα μέσα μαζικής ενημέρωσης είναι ο βασικός τρόπος με τον οποίο ο κόσμος μαθαίνει τι συμβαίνει έξω από τη γειτονιά του. Κατ' επέκταση, έχουν τη δυνατότητα να επηρεάσουν τη γνώμη των ανθρώπων πάνω σε κοινά θέματα και ερωτήματα~\cite{mcguire-1986}, όπως θέματα πολιτικής φύσεως, υγείας, ή και ασφάλειας~\cite{marchand-2004}. Αυτό μπορεί να επιτευχθεί με την επιλογή του θέματος, ή ακόμα και την επιλογή των λέξεων που περιγράφουν το θέμα, όπως το παράδειγμα παρόμοιας έρευνας των \selectlanguage{english}Hamborg et al, ``Illegal Aliens or Undocumented Immigrants?''~\cite{hamborg-2019}. \selectlanguage{greek}
+
+Η μελέτη του θέματος από τη σκοπιά της πληροφορικής είναι σχετικά πρόσφατη, καθώς η αναγνώριση της
+αντικειμενικότητας στη φυσική γλώσσα είναι ένα περίπλοκο ζήτημα και εξαρτάται από την κρίση του κάθε ανθρώπου. Παρ' όλα αυτά, έχουν προταθεί μερικές μεθοδολογίες για τη δημιουργία σετ δεδομένων, χωρίς όμως να έχουν πραγματοποιηθεί πολλές έρευνες όσον αφορά την εκπαίδευση και την αξιολόγηση αλγορίθμων μηχανικής μάθησης πάνω σε αυτά τα δεδομένα.
+
+Η έρευνα αυτή βασίζεται στο σετ δεδομένων \selectlanguage{english}``MBIC – A Media Bias Annotation Dataset Including Annotator Characteristics''~\cite{spinde-2021}, \selectlanguage{greek}μία συλλογή προτάσεων από διάφορα μέσα ενημέρωσης της Αμερικής, επισημειωμένες ως υποκειμενικές ή αντικειμενικές. Το υπόλοιπο άρθρο χωρίζεται ως εξής: Η ενότητα 2 παρουσιάζει συναφείς έρευνες, η ενότητα 3 παρουσιάζει τους αλγόριθμους που χρησιμοποιήθηκαν, η ενότητα 4 αναλύει τα βήματα που πάρθηκαν από τον καθαρισμό του σετ δεδομένων έως και τις παραμέτρους των αλγορίθμων, η ενότητα 5 τα αποτελέσματα και η ενότητα 6 τα συμπεράσματα. 
+
+\section{\selectlanguage{greek}Παρόμοιες Έρευνες}
+
+%     • Ερευνητικός χώρος (με βιβλιογραφική επισκόπηση)
+Ενώ η πλειοψηφία των ερευνών έχουν ασχοληθεί με την αντικειμενικότητα των μέσων μαζικής ενημέρωσης εστιάζονται στην Αγγλική γλώσσα, υπάρχουν έρευνες που ασχολούνται με άλλες γλώσσες,~\cite{spinde-2020} ή λαμβάνοντας υπόψη και τη χώρα~\cite{morstatter-2018}. Έχουν προταθεί διάφορες προσεγγίσεις. Το \selectlanguage{english}Newsalyze \selectlanguage{greek} είναι ένα μοντέλο που επιχειρεί να προβλέψει την υποκειμενικότητα μέσω της επιλογής των λέξεων~\cite{hambord-2019} και το \selectlanguage{english}BERT \selectlanguage{greek} μέσω των λέξεων και της σύνταξης, δημιουργώντας το σετ δεδομένων \selectlanguage{english}BASIL~\cite{fan-2019} \selectlanguage{greek}. Έχουν δημιουργηθεί επίσης αρκετά σετ δεδομένων, όπως το \selectlanguage{english}NewsWCL50~\cite{hamborg-2019auto}, \selectlanguage{greek}το \selectlanguage{english}BASIL~\cite{fan-2019} \selectlanguage{greek} και το ανώνυμο από τους \selectlanguage{english}Lim et al~\cite{lim-2018}.
+
+\section{\selectlanguage{greek}Αλγόριθμοι}
+
+%     • Αλγόριθμοι μηχανικής μάθησης
+\selectlanguage{greek}Η υλοποίηση των αλγορίθμων έγινε στη γλώσσα \selectlanguage{english}Python, \selectlanguage{greek}χρησιμοποιώντας τις βιβλιοθήκες \selectlanguage{english}pandas~\cite{pandas}, numpy~\cite{numpy}, scikit~learn~\cite{scikit-learn}, nltk~\cite{nltk} \selectlanguage{greek}και \selectlanguage{english}mlxtend~\cite{mlxtend}.
+
+\subsection{\selectlanguage{english}Decision Trees}
+\selectlanguage{greek}
+Ο αλγόριθμος \selectlanguage{english}Decision Trees \selectlanguage{greek}είναι ένας εποπτευόμενος αλγόριθμος μάθησης που μπορεί να χρησιμοποιηθεί για Ταξινόμηση και για Παλινδρόμηση. Χωρίζει αναδρομικά τα δεδομένα, δημιουργώντας ένα σύνολο διαδοχικών συγκρίσεων που προέρχονται από τα χαρακτηριστικά των εκάστοτε δεδομένων.~\cite{loh-2011}~\cite{sklearn-dt}
+
+\subsection{\selectlanguage{english}K-Nearest Neighbours}
+\selectlanguage{greek}
+Ο αλγόριθμος \selectlanguage{english}K-Nearest Neighbours \selectlanguage{greek}είναι ένας εποπτευόμενος και μη αλγόριθμος μάθησης που χρησιμοποιείται για Ταξινόμηση και Παλινδρόμηση. Υπολογίζει την απόσταση ενός στοιχείου σε σχέση με όλα τα υπόλοιπα στοιχεία βάσει μιας συνάρτησης, και την κατατάσσει, ή προβλέπει την αριθμητική τιμή στην περίπτωση της Παλινδρόμησης, ανάλογα με τις τιμές των \selectlanguage{english}k \selectlanguage{greek}κοντινότερων στοιχείων.~\cite{sklearn-knn}
+
+\subsection{\selectlanguage{english}Gradient Boosted Decision Trees}
+\selectlanguage{english}
+Gradient Boosting \selectlanguage{greek}είναι η τεχνική κατά την οποία χρησιμοποιείται ένα σύνολο απλών μοντέλων, στα οποία τροφοδοτούνται τα δεδομένα μαζί με ένα συντελεστή βαρύτητας. Κάθε επανάληψη υπολογίζει το λάθος μέσω κάποιας συνάρτησης λάθους (\selectlanguage{english}loss function) \selectlanguage{greek}και τροφοδοτεί τα βάρη στην επόμενη επανάληψη, έτσι ώστε το επόμενο μοντέλο να επικεντρωθεί στις απώλειες του προηγούμενου.~\cite{friedman-2001} Ο αλγόριθμος \selectlanguage{english}Gradient Boosted Decision Trees \selectlanguage{greek}χρησιμοποιεί αυτήν την τεχνική με δέντρα απόφασης μικρού βάθους.~\cite{sklearn-gbdt}
+
+\subsection{\selectlanguage{english}Multi-Layer Perceptron}
+\selectlanguage{greek}
+Ο αλγόριθμος \selectlanguage{english}Multi-Layer Perceptron \selectlanguage{greek}είναι ένα είδος εποπτευόμενου Νευρωνικού Δικτύου που μπορεί να χρησιμοποιηθεί για Ταξινόμηση και Παλινδρόμηση. Αποτελείται από πολλά επίπεδα (\selectlanguage{english}Layers), \selectlanguage{greek}τα οποία αποτελούνται από πολλούς νευρώνες, όπου ο καθένας από αυτούς συνδέεται με κάποιο βάρος με κάποιον νευρώνα του προηγούμενου επιπέδου και κάποιον του επόμενου. Μέσω μιας συνάρτησης ενεργοποίησης, κάθε νευρώνας τείνει προς μία τιμή.~\cite{rosenbaltt-1957} Στο τελευταίο επίπεδο γίνεται αξιολόγηση του λάθους, το οποίο επανατροφοδοτείται σαν είσοδος του αλγορίθμου, επαναλαμβάνοντας τον αλγόριθμο με διαφορετικά βάρη.~\cite{sklearn-mlp} 
+
+\subsection{\selectlanguage{english}Voting Classifier}
+\selectlanguage{greek}
+Ο αλγόριθμος \selectlanguage{english}Voting Classifier \selectlanguage{greek}είναι ένας αλγόριθμος μετα-ταξινόμησης, δηλαδή βασίζεται στα αποτελέσματα άλλων αλγορίθμων. Είναι μία διαδικασία ψήφου, όπου το αποτέλεσμα προκύπτει από την πλειοψηφία των αποτελεσμάτων των υπόλοιπων αλγορίθμων, καθώς και πόσο σίγουροι είναι οι αλγόριθμοι στο αποτέλεσμά τους. Στην υλοποίηση του \selectlanguage{english}mlxtend, \selectlanguage{greek}υπάρχει επίσης η δυνατότητα ενσωμάτωσης συντελεστών βαρύτητας, δηλαδή κάποιοι αλγόριθμοι είναι πιο σημαντικοί από τους άλλους\footnote{βλ. Φάρμα των Ζώων}.~\cite{mlxtend-vc}
+
+\section{\selectlanguage{greek}Μεθοδολογία}
+
+%     • Μεθοδολογική διαδικασία
+%         ◦ Περιγραφή δεδομένων
+%         ◦ Περιγραφή προεπεξεργασίας
+%         ◦ Πειράματα μάθησης 
+
+Το \selectlanguage{english}MBIC (Media Bias Including Characteristics) \selectlanguage{greek}είναι ένα σετ δεδομένων 1700 εγγραφών για την μεροληψία των μέσων ενημέρωσης. Περιέχει προτάσεις από  διάφορα άρθρα μέσων ενημέρωσης, με διαφορετικές πολιτικές πεποιθήσεις, πάνω σε  αμφιλεγόμενα και μη θέματα. Κάθε πρόταση εξετάστηκε από 10 διαφορετικούς επισημειωτές, διάφορων ηλικιών, κοινωνικών φύλων, υποβάθρων εκπαίδευσης και πολιτικών πεποιθήσεων, ώστε να κρίνουν την αντικειμενικότητα της κάθε πρότασης, καθώς και να αναγνωρίσουν τις λέξεις που φανερώνουν τυχόν υποκειμενικότητα.
+
+Εκτός από τις προτάσεις, περιέχει και μεταδεδομένα όσον αφορά το άρθρο από το οποίο πάρθηκε η πρόταση (όνομα και πολιτικός προσανατολισμός μέσου, όνομα και θέμα άρθρου). Το αποτέλεσμα της επισημείωσης, αν είναι αντικειμενική ή υποκειμενική η πρόταση δηλαδή, βγαίνει από την πλειοψηφία των απαντήσεων ως \selectlanguage{english}Biased \selectlanguage{greek}ή \selectlanguage{english}Non-Biased, \selectlanguage{greek}και σε περίπτωση ισοψηφίας ως \selectlanguage{english}No Agreement.~\cite{spinde-2021}
+
+\subsection{\selectlanguage{greek}Προεπεξεργασία}
+\selectlanguage{greek}
+
+Αρχικά, καθώς οι τιμές \selectlanguage{english}No Agreement \selectlanguage{greek}δεν προσφέρουν κάποια πληροφορία στα πλαίσια αυτής της έρευνας, αφαιρούνται και μένουν 1551 στοιχεία. Έπειτα, μετατρέπονται οι τελικές τιμές\selectlanguage{english} (Biased, Non-Biased) \selectlanguage{greek}σε δυαδική μορφή (1, 0). Στη συνέχεια, δημιουργούνται 3 διαφορετικά υποσύνολα του αρχικού σετ δεδομένων.
+
+Το πρώτο υποσύνολο περιέχει τα μεταδεδομένα των προτάσεων, δηλαδή:
+\begin{itemize}
+  \item \textbf{\selectlanguage{english}Outlet}: Το όνομα του μέσου στο οποίο δημοσιεύθηκε το άρθρο που περιέχει την πρόταση,
+  \item \textbf{\selectlanguage{english}Topic}: Το θέμα στο οποίο αναφέρεται η πρόταση,
+  \item \textbf{\selectlanguage{english}Type}: Ο πολιτικός προσανατολισμός του μέσου.
+\end{itemize}
+Σκοπός αυτού του σετ είναι να μπορεί να εκφραστεί στην τελική πρόβλεψη το γενικό πλαίσιο από το οποίο προήρθε η πρόταση. Επειδή όμως η υλοποίηση του αλγορίθμου \selectlanguage{english}Decision Trees \selectlanguage{greek}δεν υποστηρίζει είσοδο σε μορφή κατηγοριών~\cite{sklearn-dt}, δημιουργήθηκαν λεξικά με αριθμητικές αντιστοιχίσεις για καθένα από τα χαρακτηριστικά.
+
+Το δεύτερο και το τρίτο υποσύνολο είναι δύο διαφορετικοί τρόποι σύμπτυξης των λέξεων που υπάρχουν στις προτάσεις. Το δεύτερο υποσύνολο χρησιμοποιεί τον αλγόριθμο \selectlanguage{english}Snowball Stemmer, \selectlanguage{greek} ο οποίος είναι ένα σύνολο κανόνων αφαίρεσης καταλήξεων των λέξεων.~\cite{porter-2001}
+\selectlanguage{greek}Το τρίτο υποσύνολο χρησιμοποιεί το \selectlanguage{english}Word Net Lemmatizer,\selectlanguage{greek}ένα λεξικό αντιστοιχίσεων που δέχεται μία λέξη ως είσοδο και επιστρέφει το λήμμα της λέξης.~\cite{nltk-wordnet} Για παράδειγμα:
+\begin{table}[h!]
+  \caption{\selectlanguage{greek}Διαφορές ρίζας (\selectlanguage{english}stem)\selectlanguage{greek} και λήμματος (\selectlanguage{english}lemma)}
+  \begin{center}
+	  \selectlanguage{english}
+	\begin{tabular}{c c c}
+	  \hline
+	  \textbf{Word} & \textbf{Stem} & \textbf{Lemma} \\
+	  \hline
+	  walk          & walk          & walk           \\
+	  \hline
+	  walks         & walk          & walk           \\
+	  \hline
+	  walking       & walk          & walking        \\
+	  \hline
+	  walker        & walk          & walker         \\
+	  \hline
+	\end{tabular}
+  \end{center}
+\end{table}
+
+Και στα δύο υποσύνολα αφαιρούνται τα \selectlanguage{english}stopwords, \selectlanguage{greek}λέξεις που δεν προσφέρουν πληροφορία, όπως άρθρα και υπολογίζεται η \selectlanguage{english}TF-IDF \selectlanguage{greek}τιμή τους. Αυτή η τιμή περιγράφει πόσο σημαντική είναι μία λέξη μέσα σε ένα σύνολο προτάσεων, δεδομένου πόσες φορές εμφανίζεται η κάθε λέξη σε μία πρόταση και κάθε πρόταση.~\cite{leskovec-2020}
+
+\subsection{\selectlanguage{greek}Παράμετροι Αλγορίθμων}
+
+Για τα πειράματα χρησιμοποιήθηκε \selectlanguage{english}10-fold Validation. \selectlanguage{greek}Ακολουθούν οι τελικές παράμετροι των αλγορίθμων.
+
+\begin{table}[h!]
+  \caption{\selectlanguage{english}Decision Trees}
+  \selectlanguage{english}
+  \begin{center}
+	\begin{tabular}{l c}
+	  \hline
+	  \textbf{Criterion} & Gini \\
+	  \hline
+	  \textbf{Splitter}  & Best \\
+	  \hline
+	  \textbf{Max Depth} & 5 \\
+	  \hline
+	  \textbf{Max Features} & Auto \\
+	  \hline
+	\end{tabular}
+  \end{center}
+\end{table}
+
+\begin{table}[h!]
+  \caption{\selectlanguage{english}K-Nearest Neighbours}
+  \selectlanguage{english}
+  \begin{center}
+	\begin{tabular}{l c}
+	  \hline
+	  \textbf{Number Of Neighbours} & 20 \\
+	  \hline
+	  \textbf{Weights}  & Uniform \\
+	  \hline
+	  \textbf{Algorithm} & Ball Tree \\
+	  \hline
+	  \textbf{Leaf Size} & 30 \\
+	  \hline
+	  \textbf{Distance} & Euclidean\\
+	  \hline
+	\end{tabular}
+  \end{center}
+\end{table}
+
+\begin{table}[h!]
+  \caption{\selectlanguage{english}Gradient Boosted Decision Trees}
+  \selectlanguage{english}
+  \begin{center}
+	\begin{tabular}{l c c}
+	  \hline
+	  \textbf{Parameters}   & \textbf{With Stems} & \textbf{With Lemmas} \\
+	  \hline
+	  \textbf{Loss} & Deviance & Exponential \\
+	  \hline
+	  \textbf{Learning Rate} & 0.01 & 0.01 \\
+	  \hline
+	  \textbf{Number Of Estimators} & 80 & 80 \\
+	  \hline
+	  \textbf{Subsample} & 0.4 & 0.4 \\
+	  \hline
+	  \textbf{Max Depth} & 8 & 2 \\
+	  \hline
+	\end{tabular}
+  \end{center}
+\end{table}
+
+\begin{table}[h!]
+  \caption{\selectlanguage{english}Multi-Layer Perceptron}
+  \selectlanguage{english}
+  \begin{center}
+	\begin{tabular}{l c c}
+	  \hline
+	  \textbf{Parameters}   & \textbf{With Stems} & \textbf{With Lemmas} \\
+	  \hline
+	  \textbf{Hidden Layer Sizes} & 200, 100, 50 & 750, 500, 250, 100 \\
+	  \hline
+	  \textbf{Activation} & Logistic & Tanh \\
+	  \hline
+	  \textbf{Solver} & Adam & Adam \\
+	  \hline
+	  \textbf{Learning Rate} & Adaptive & Adaptive \\
+	  \hline
+	  \textbf{Max Iterations} & 200 & 300 \\
+	  \hline
+	\end{tabular}
+  \end{center}
+\end{table}
+
+\begin{table}[h!]
+  \caption{\selectlanguage{english}Voting Classifier}
+  \selectlanguage{english}
+  \begin{center}
+	\begin{tabular}{l c}
+	  \hline
+	  \textbf{Voting} & Soft \\
+	  \hline
+	  \textbf{Decision Trees Weight} & 1.4 \\
+	  \hline
+	  \textbf{K-Nearest Neighbours Weight} & 1.4 \\
+	  \hline
+	  \textbf{Gradient Boosted Decision Trees Weight (Stems)} & 1.0 \\
+	  \hline
+	  \textbf{Gradient Boosted Decision Trees Weight (Lemmas)} & 0.2 \\
+	  \hline
+	  \textbf{Multi-Layer Perceptron Weight (Stems)} & 0.2 \\
+	  \hline
+	  \textbf{Multi-Layer Perceptron Weight (Lemmas)} & 1.0 \\
+	  \hline
+	\end{tabular}
+  \end{center}
+\end{table}
+
+\section{\selectlanguage{greek}Αποτελέσματα}
+
+%         ◦ Ανάλυση και αξιολόγηση
+
+\begin{table}[h!]
+  \caption{\selectlanguage{greek}Αποτελέσματα}
+  \selectlanguage{english}
+  \begin{center}
+	\begin{tabular}{l c}
+	  \hline
+	  \textbf{Model} & Accuracy \\
+	  \hline
+	  Decision Trees & 72\% \\
+	  \hline
+	  K-Nearest Neighbours & 72\% \\
+	  \hline
+	  Gradient Boosted Decision Trees (Stems) & 71\% \\
+	  \hline
+	  Gradient Boosted Decision Trees (Lemmas) & 72\% \\
+	  \hline
+	  Multi-Layer Perceptron (Stems) & 69\% \\
+	  \hline
+	  Multi-Layer Perceptron (Lemmas) & 69\% \\
+	  \hline
+	  Voting Classifier & 73\% \\
+	  \hline
+	\end{tabular}
+  \end{center}
+\end{table}
+
+\selectlanguage{greek}
+Υπάρχουν πολύ μικρές διαφορές στην αποτελεσματικότητα των αλγορίθμων, παρ' όλο που εκπαιδεύονται από τρία διαφορετικά σετ δεδομένων. Το μόνο καθαρό συμπέρασμα που προκύπτει είναι ότι η υποκειμενικότητα στην επικοινωνία μέσω της Φυσικής Γλώσσας είναι πολύ λεπτό θέμα.
+
+\section{\selectlanguage{greek}Συμπεράσματα}
+
+Ενώ τα αποτελέσματα της έρευνας δεν είναι επαρκή, πιστεύω ότι με μερικές τροποποιήσεις στην προεπεξεργασία υπάρχει χώρος για βελτίωση. Τα αποτελέσματα δείχνουν ότι βρέθηκαν συσχετίσεις, αλλά ίσως όχι αρκετές. Επίσης, ο αλγόριθμος μετα-ταξινόμησης \selectlanguage{english}Stacking \selectlanguage{greek}ίσως να πρέπει να χρησιμοποιηθεί σε αυτήν την περίπτωση, αφού ο κάθε αλγόριθμος δέχεται διαφορετικά δεδομένα και έχει διαφορετικές δυνάμεις και αδυναμίες.
+
+%     • Συμπεράσματα και προτάσεις για μελλοντικές βελτιώσεις
+
+%     • Βιβλιογραφία
+\bibliographystyle{plain}
+\selectlanguage{english}
+\bibliography{mbic_analysis}
+
+\end{document}
+
+
